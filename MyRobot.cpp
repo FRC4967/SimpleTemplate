@@ -9,12 +9,14 @@
 class RobotDemo : public SimpleRobot
 {
 	RobotDrive myRobot; // robot drive system
-	Joystick stick; // only joystick
+	Joystick stick_l, stick_r; // one joystick
+	
 
 public:
 	RobotDemo():
 		myRobot(1, 2),	// these must be initialized in the same order
-		stick(1)		// as they are declared above.
+		stick_l(1),		// as they are declared above.
+		stick_r(2)
 	{
 		myRobot.SetExpiration(0.1);
 	}
@@ -38,7 +40,9 @@ public:
 		myRobot.SetSafetyEnabled(true);
 		while (IsOperatorControl())
 		{
-			myRobot.ArcadeDrive(stick); // drive with arcade style (use right stick)
+			myRobot.TankDrive(stick_l,stick_r,true);
+		
+			//myRobot.ArcadeDrive(stick); // drive with arcade style (use right stick)
 			Wait(0.005);				// wait for a motor update time
 		}
 	}
